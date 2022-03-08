@@ -32,7 +32,6 @@ function NavBar() {
                 style={{ maxHeight: "100px" }}
                 navbarScroll
               >
-                <Nav.Link href="/">Home</Nav.Link>
                 {Auth.loggedIn() ? (
                   <>
                     <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>

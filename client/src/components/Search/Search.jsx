@@ -1,29 +1,31 @@
 import React from "react";
 
-const Search = ()=>{
+const Search = (currentLocation)=>{
 
     return(
-        <section class="col-3">
+        <section className="col-3">
+      
+
         {/* <!-- Search Container --> */}
-        <form class="border-bottom-dark">
-          <div class="form-group mb-3">
-            <label for="cityText" class="form-label h3"
+        <form className="border-bottom-dark">
+          <div className="form-group mb-3">
+            <label htmlFor="cityText" className="form-label h3"
               >Search City Name:</label
             >
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="cityText"
               aria-describedby="citySelectHelp"
             />
-            <label for="units" class="form-label h5">Unit Type: </label>
-            <select name="units" id="units" class="p-1 mt-2">
+            <label htmlFor="units" className="htmlForclassNamem-label h5">Unit Type: </label>
+            <select name="units" id="units" className="p-1 mt-2">
               <option value="imperial">Imperial</option>
               <option value="metric">Metric</option>
               <option value="standard">Standard</option>
             </select>
           </div>
-          <button type="submit" class="col-12 btn btn-primary" id="subBtn">
+          <button type="submit" className="col-12 btn btn-primary" id="subBtn">
             Search
           </button>
         </form>

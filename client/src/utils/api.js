@@ -53,8 +53,22 @@ export const deleteLocation = (locationId, token) => {
 };
 
 // make a search
-//
-export const searchLocation = async (lat,lon) => {
+export const showCurLocation = () => {
+  return navigator.geolocation.getCurrentPosition(success, error);
+}
+
+// Getting current location
+async function success(pos) {
+  const crd = await pos.coords;
+  const{latitude,longitude} = crd
+  return gerCurLocation(latitude, longitude);
+  
+
+}
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+ const gerCurLocation = async (lat,lon) => {
   const API_KEY = process.env.REACT_APP_API_KEY;
   const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`);
   if (!response.ok) {
@@ -63,5 +77,6 @@ export const searchLocation = async (lat,lon) => {
 
   const data = await response.json();
   console.log(data);
-  return data;
+  return data
+  
 };
