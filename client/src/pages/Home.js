@@ -14,6 +14,8 @@ const Home = () => {
   // const [addSavedLocation] = useMutation(SAVE_LOCATION);  
   const [locationData, setLocationData]=useState({});
   const [unitType,setUnitType] = useState('imperial')
+  const [units,setUnits] = useState(['°F','mph'])
+
   const [searchedCity,setSearchedCity] = useState("")
   const showCurLocation = async () => {
     return await navigator.geolocation.getCurrentPosition(success, error);
@@ -79,8 +81,8 @@ const Home = () => {
   return (
     <>
    <div className="d-flex"id="home">
-      <Search findCity={findCity} getCurrentLocation={getCurrentLocation}/>
-      <Current locationData={locationData} getWeatherImage={getWeatherImage} searchedCity={searchedCity}/>
+      <Search findCity={findCity} getCurrentLocation={getCurrentLocation} setUnitType={setUnitType} setUnits={setUnits}/>
+      <Current locationData={locationData} getWeatherImage={getWeatherImage} searchedCity={searchedCity} units={units}/>
     </div>
     <Hourly locationData={locationData} getWeatherImage={getWeatherImage}/>
     <Week locationData={locationData} getWeatherImage={getWeatherImage}/>
