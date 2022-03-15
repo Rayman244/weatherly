@@ -1,20 +1,27 @@
 // NavBar Component
 //Navbar
-import React, { useState } from "react";
-import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
-import SignUp from '../SignUp/SignUp'
-import LogIn from '../Login'
+// import React, { useState } from "react";
+import React from "react";
+
+import { Navbar, Container } from "react-bootstrap";
+// import SignUp from '../SignUp/SignUp'
+// import LogIn from '../Login'
 import './styles.css'
-import Auth from "../../utils/auth";
+// import Auth from "../../utils/auth";
 
 function NavBar() {
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="NavBar mb-2">
+    <div>
+  <Navbar expand="sm">
+    <Container>
+      <Navbar.Brand href="/">Weatherly</Navbar.Brand>
+    </Container>
+  </Navbar>
 
-    <>
-        <Navbar expand="lg" className="navbar-custom">
+    
+        {/* <Navbar expand="lg" className="navbar-custom">
           <Container fluid>
             <Navbar.Brand href="/">
               <img
@@ -44,16 +51,16 @@ function NavBar() {
               </Nav>
             </Navbar.Collapse>
           </Container>
-        </Navbar>
+        </Navbar> */}
         {/* set modal data up */}
-        <Modal
+        {/* <Modal
           size="lg"
           show={showModal}
           onHide={() => setShowModal(false)}
           aria-labelledby="signup-modal"
-        >
+        > */}
           {/* tab container to do either signup or login component */}
-          <Tab.Container defaultActiveKey="login">
+          {/* <Tab.Container defaultActiveKey="login">
             <Modal.Header closeButton>
               <Modal.Title id="signup-modal">
                 <Nav variant="pills">
@@ -77,8 +84,8 @@ function NavBar() {
               </Tab.Content>
             </Modal.Body>
           </Tab.Container>
-        </Modal>
-      </>
+        </Modal> */}
+      
     </div>
   );
 }
