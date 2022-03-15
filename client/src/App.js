@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/Navbar';
 import { Home } from './pages';
 
-
+import "./App.css"
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
