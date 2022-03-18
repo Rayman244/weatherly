@@ -8,12 +8,12 @@ const Hourly = ({ locationData,getWeatherImage }) => {
   return (
     <div className="container-fliud p-3" id="hourDiv">
       <h3>Next Few Hours</h3>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex flex-wrap justify-content-around">
         {hourly
           ? hourly.slice(1, 7).map((hour, index) => {
               // console.log(hour)
               return (
-                <Card style={{ width: '18rem', textAlign:'center', margin:'8px'}} key={index}>
+                <Card style={{ width: '10rem', textAlign:'center', margin:'8px'}} key={index}>
                 <Card.Img variant="top" src={`${getWeatherImage(hour.weather['0'].icon)}`} />
                 <Card.Body>
                   <Card.Title><Moment unix format='h a'>{hour.dt}</Moment></Card.Title>     

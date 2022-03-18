@@ -2,7 +2,7 @@
 import React from "react";
 import Moment from "react-moment";
 const Current = ({ locationData = {}, getWeatherImage, searchedCity,units}) => {
-  console.log(locationData);
+  // console.log(locationData);
   // console.log(searchedCity)
   const {
     clouds,
@@ -40,18 +40,33 @@ const Current = ({ locationData = {}, getWeatherImage, searchedCity,units}) => {
           <h2 id="cityTxtEl">Current Location</h2>
         </div>
       )}
-      <div>
-        <div className="row">
-          <div className="row">
-            <div className="col text-center">
-              <p id="tempEl">Temp: {temp} {units[0]} </p>
-              <p id="curfeelsEl">Feels like: {feels_like} {units[0]}</p>
-              <p id="curWindSpeedEl">Wind: {wind_speed} {units[1]} {}</p>
-              {wind_gust ? (
+      <div className="d-flex flex-wrap justify-content-around">
+          
+            <div className="text-center m-auto">
+            <div className="text-center">
+                <img
+                  className="img-fluid"
+                  id="weatherImg"
+                  src={`${getWeatherImage(icon)}`}
+                  alt="Weather Icon"
+                />
+              </div>  <p id="curDescriptionEl" className="text-center">
+                {weather ? weather["0"].main : "Sunny"}
+              </p>
+              <p id="tempEl">Temp: {Math.round(temp) || 0} {units[0]} </p>
+              <p id="curfeelsEl">Feels like: {Math.round(feels_like)||0} {units[0]}</p>
+               <p id="curWindSpeedEl">Wind: {wind_speed} {units[1]} {}</p>
+             
+            
+            </div>
+            <div className=" m-auto text-center">
+            
+             {wind_gust ? (
                 <p id="curWindSpeedEl">Gust: {wind_gust} {units[1]}</p>
               ) : (
                 ""
               )}
+              <p>UV Index: {uvi}</p>
               {sunrise ? (
                 <p>
                   Sunrise:{" "}
@@ -75,21 +90,7 @@ const Current = ({ locationData = {}, getWeatherImage, searchedCity,units}) => {
                 ""
               )}
             </div>
-            <div className="col text-center">
-              <div className="text-center">
-                <img
-                  className="img-fluid"
-                  id="weatherImg"
-                  src={`${getWeatherImage(icon)}`}
-                  alt="Weather Icon"
-                />
-              </div>
-              <p id="curDescriptionEl" className="text-center">
-                {weather ? weather["0"].main : "Sunny"}
-              </p>
-              <p>UV Index: {uvi}</p>
-            </div>
-            <div className="col text-center">
+            <div className=" m-auto text-center">
               <p id="curHumidityEl">Humidity: {humidity}%</p>
               <p id="curCloudsEl">Clouds:{clouds}%</p>
               <p id="curVisibilityEl">Visibility: {visibility}m</p>
@@ -98,8 +99,6 @@ const Current = ({ locationData = {}, getWeatherImage, searchedCity,units}) => {
               <p>Pressure: {pressure} hPa</p>
             </div>
           </div>
-        </div>
-      </div>
     </section>
   );
 };
