@@ -106,10 +106,10 @@ const Home = () => {
    <div className="d-flex"id="home">
       <Search findCity={findCity} getCurrentLocation={getCurrentLocation} setUnitType={setUnitType} setUnits={setUnits}/>
       <Current locationData={locationData} getWeatherImage={getWeatherImage} searchedCity={searchedCity} units={units}/>
-    </div>
+    </div><Map />
     <Hourly locationData={locationData} getWeatherImage={getWeatherImage}/>
    
-    <Map />
+    
     <Week locationData={locationData} getWeatherImage={getWeatherImage}/>
    <Alerts locationData={locationData}/>
     </>

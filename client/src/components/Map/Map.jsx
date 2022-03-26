@@ -12,9 +12,11 @@ const center = {
   };
 
 const Map = () => {
+  const API_KEY = process.env.GOOGLE_API_KEY
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyCEdg7nFRw9J7PcnOeFqtXN9mjCF1mDpSo"
+        // exposed API_KEY SHOULD BE SECRET
+        googleMapsApiKey: `AIzaSyCEdg7nFRw9J7PcnOeFqtXN9mjCF1mDpSo`
       })
     
       const [map, setMap] = React.useState(null)
