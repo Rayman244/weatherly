@@ -18,10 +18,10 @@ const Hourly = ({ locationData,getWeatherImage }) => {
                 <Card.Body>
                   <Card.Title><Moment unix format='h a'>{hour.dt}</Moment></Card.Title>     
 
-                  <p>Temp: {hour.temp}°F</p>
-                 <p>Feels: {hour.feels_like}°F</p>
-                 <p>Wind: {hour.wind_speed} mph</p>
-                 <p>Gust: {hour.wind_gust} mph</p>
+                  <p>Temp: {Math.round(hour.temp)}°F</p>
+                 <p>Feels: {Math.round(hour.feels_like)}°F</p>
+                 <p>Wind: {Math.round(hour.wind_speed)} mph</p>
+                 <p>Gust: {Math.round(hour.wind_gust)} mph</p>
                 </Card.Body>
               </Card>
                 // <div className="card hourCard" key={index}>

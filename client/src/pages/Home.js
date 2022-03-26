@@ -8,6 +8,9 @@ import Search from "../components/Search/Search";
 import Hourly from "../components/Location/Hourly/Hourly";
 import Week from "../components/WeekForcast/Week";
 import Alerts from "../components/Alerts/Alerts";
+
+import Map from "../components/Map/Map";
+
 import "./styles.css"
 
 const Home = () => {
@@ -15,6 +18,8 @@ const Home = () => {
   const [locationData, setLocationData]=useState({});
   const [unitType,setUnitType] = useState('imperial')
   const [units,setUnits] = useState(['°F','mph'])
+  const [center, setCenter] = useState([0, 0]);
+  const [zoom, setZoom] = useState(1);
 
   const [searchedCity,setSearchedCity] = useState("")
   const showCurLocation = async () => {
@@ -23,8 +28,14 @@ const Home = () => {
   
   // Getting current location
   async function success(pos) {
+    const API_KEY = process.env.REACT_APP_API_KEY;
     const crd = await pos.coords;
     const{latitude,longitude} = crd
+    const response = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=5&appid=${API_KEY}`)
+    const data = await response.json();
+    console.log(data);
+    setSearchedCity([{"city":data['0'].name,"state":data['0'].state}])
+    weatherMap('precipitation_new',center[0],center[1],zoom)
     return gerCurLocation(latitude, longitude);
     
   
@@ -67,7 +78,6 @@ const Home = () => {
       const response = await showCurLocation();
      const data = response
      setLocationData(data)
-     setSearchedCity("Current Location")
     } catch (err) {
       console.error(err);
     }
@@ -77,7 +87,20 @@ const Home = () => {
     var imgUrl = `https://openweathermap.org/img/wn/${imgId}@2x.png`;
     return imgUrl;
   }
+  
+  const weatherMap= async (layer,lat,lon,z)=>{
+    const API_KEY = process.env.REACT_APP_API_KEY;
 
+    try{
+      const response = await fetch(`https://tile.openweathermap.org/map/${layer}/${z}/${lat}/${lon}.png?appid=${API_KEY}`)
+      // const data = await response.json()
+      console.log(response);
+    }catch(err){
+      console.log("error in weathermap", err);
+    }
+  }
+  // console.log(weatherMap('TA2',));
+  
   return (
     <>
    <div className="d-flex"id="home">
@@ -85,6 +108,8 @@ const Home = () => {
       <Current locationData={locationData} getWeatherImage={getWeatherImage} searchedCity={searchedCity} units={units}/>
     </div>
     <Hourly locationData={locationData} getWeatherImage={getWeatherImage}/>
+   
+    <Map />
     <Week locationData={locationData} getWeatherImage={getWeatherImage}/>
    <Alerts locationData={locationData}/>
     </>

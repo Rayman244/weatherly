@@ -1,5 +1,5 @@
 // import React, { useState } from "react";
-import React from "react";
+import React ,{useState,useEffect}from "react";
 import Moment from "react-moment";
 const Current = ({ locationData = {}, getWeatherImage, searchedCity,units}) => {
   // console.log(locationData);
@@ -22,10 +22,34 @@ const Current = ({ locationData = {}, getWeatherImage, searchedCity,units}) => {
     // wind_deg
   } = locationData.current || {};
   const { city, state } = searchedCity["0"] || "Current Location";
-  
+  const [rating, setRating] = useState('Low')
   const icon = weather ? weather["0"].icon : "01d";
   // const [windDirection,setWindDirection]= useState('')
- 
+  function uvChecker(uvIndex) {
+    
+    if (uvIndex >= 3 && uvIndex<=5) {
+      setRating('Moderate')
+      return (<p className="ml-1 p-1" style={{backgroundColor:"rgb(245,225,10)"}}>{rating}</p>)
+    }else if(uvIndex >= 6 && uvIndex<=7){
+      setRating('High')
+      return (<p className="ml-1 p-1" style={{backgroundColor:"orange"}}>{rating}</p>)
+    }else if(uvIndex >= 8 && uvIndex <=10){
+      setRating('Very High')
+      return (<p className='bg-danger ml-1 p-1'>{rating}</p>)
+    }else if(uvIndex > 10){
+      setRating('Extreme')
+      return (<p className="ml-1 p-1" style={{backgroundColor:"purple"}} >{rating}</p>)
+    } else {
+      return (<p className="bg-success text-white ml-1 p-1">{rating}</p>)
+    }
+  }
+  useEffect(() => {
+    uvChecker(uvi)
+  
+  
+  })
+  
+  // uvChecker( uvi || 0)
   return (
     <section className="container col-8 text-center ">
       <h1>
@@ -51,22 +75,29 @@ const Current = ({ locationData = {}, getWeatherImage, searchedCity,units}) => {
                   alt="Weather Icon"
                 />
               </div>  <p id="curDescriptionEl" className="text-center">
-                {weather ? weather["0"].main : "Sunny"}
+                {weather ? weather["0"].main : "Sunny"} {Math.round(temp) || 0}{units[0]}
               </p>
-              <p id="tempEl">Temp: {Math.round(temp) || 0} {units[0]} </p>
-              <p id="curfeelsEl">Feels like: {Math.round(feels_like)||0} {units[0]}</p>
-               <p id="curWindSpeedEl">Wind: {wind_speed} {units[1]} {}</p>
+              <p id="curfeelsEl">Feels: {Math.round(feels_like)||0}{units[0]}</p>
+               <p id="curWindSpeedEl">Wind: {Math.round(wind_speed)}{units[1]} {}</p>
              
             
             </div>
             <div className=" m-auto text-center">
             
              {wind_gust ? (
-                <p id="curWindSpeedEl">Gust: {wind_gust} {units[1]}</p>
+                <p id="curWindSpeedEl">Gust: {Math.round(wind_gust)} {units[1]}</p>
               ) : (
                 ""
               )}
-              <p>UV Index: {uvi}</p>
+              <div className="d-flex">
+
+                {<p className="ml-auto">UV Index: {rating}</p>}
+                {/* may throw error if uvi is too high */}
+                {/* {uvChecker(uvi)} */}
+       
+
+              </div>
+              
               {sunrise ? (
                 <p>
                   Sunrise:{" "}

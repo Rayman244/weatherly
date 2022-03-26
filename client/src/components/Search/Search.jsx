@@ -77,13 +77,13 @@ const Search = ({ findCity, getCurrentLocation, setUnitType, setUnits }) => {
           </div>
         </fieldset>
       </Form>
-      <section id="searchedContainer">
+      {/* <section id="searchedContainer">
         {searchedCities? searchedCities.slice(1,5).map((cit,index)=>{
           return(
             <Button key={index} value={cit}>{cit}</Button>
           )
         }) : <p>Search a City</p>}
-      </section>
+      </section> */}
     </section>
   );
 };

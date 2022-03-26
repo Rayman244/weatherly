@@ -15,7 +15,7 @@ const Week = ({locationData,getWeatherImage})=>{
                 <Card style={{ width: '10rem', textAlign:'center', margin:'8px'}} key={index}>
                 <Card.Img variant="top" src={`${getWeatherImage(day.weather['0'].icon)}`} />
                 <Card.Body>
-                <Card.Title><Moment unix format=' ddd DD'>{day.dt}</Moment></Card.Title>
+                <Card.Title><Moment unix format=' ddd Do'>{day.dt}</Moment></Card.Title>
                  <p >Temp: {Math.round(day.temp.day)}°F</p>
                   <p>Feels: {Math.round(day.feels_like.day)}°F</p>
                  <p>Wind: {Math.round(day.wind_speed)} mph</p>
@@ -23,11 +23,7 @@ const Week = ({locationData,getWeatherImage})=>{
 
                 </Card.Body>
               </Card>
-                // <div className="card hourCard" key={index}>
-                //   <p>Temp: {hour.temp}°F</p>
-                //   <p>Feels Like: {hour.feels_like}°F</p>
-                //   <p>Wind: {hour.wind_speed} mph</p>
-                // </div>
+               
               );
             })
           : []}
