@@ -20,6 +20,7 @@ const Home = () => {
   const [units,setUnits] = useState(['°F','mph'])
   const [center, setCenter] = useState([0, 0]);
   const [zoom, setZoom] = useState(1);
+  const [location, setLocation] = useState([{name:'Philadelphia',lat:39.9527237,lon: -75.1635262}])
 
   const [searchedCity,setSearchedCity] = useState("")
   const showCurLocation = async () => {
@@ -33,6 +34,7 @@ const Home = () => {
     const{latitude,longitude} = crd
     const response = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=5&appid=${API_KEY}`)
     const data = await response.json();
+    setLocation(data)
     console.log(data);
     setSearchedCity([{"city":data['0'].name,"state":data['0'].state}])
     weatherMap('precipitation_new',center[0],center[1],zoom)
@@ -106,7 +108,9 @@ const Home = () => {
    <div className="d-flex"id="home">
       <Search findCity={findCity} getCurrentLocation={getCurrentLocation} setUnitType={setUnitType} setUnits={setUnits}/>
       <Current locationData={locationData} getWeatherImage={getWeatherImage} searchedCity={searchedCity} units={units}/>
-    </div><Map />
+    </div>
+    <Map lat={location.lat} lon={location.lon} />
+    
     <Hourly locationData={locationData} getWeatherImage={getWeatherImage}/>
    
     

@@ -1,47 +1,46 @@
-import React from "react"
+import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import "./styles.css";
-const containerStyle = {
-    width: '400px',
-    height: '400px'
-  };
-  
-const center = {
-    lat: 40.745,
-    lng: -70.523
-  };
 
-const Map = () => {
-  const API_KEY = process.env.GOOGLE_API_KEY
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        // exposed API_KEY SHOULD BE SECRET
-        googleMapsApiKey: `AIzaSyCEdg7nFRw9J7PcnOeFqtXN9mjCF1mDpSo`
-      })
-    
-      const [map, setMap] = React.useState(null)
-    
-      const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds();
-        map.fitBounds(bounds);
-        setMap(map)
-      }, [])
-    
-      const onUnmount = React.useCallback(function callback(map) {
-        setMap(null)
-      }, [])
-    
-      return isLoaded ? (
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={10}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-          >
-            { /* Child components, such as markers, info windows, etc. */ }
-            <></>
-          </GoogleMap>
-      ) : <></>
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
+
+const center = {
+  lat: 39.9527237,
+  lng: -75.1635262
+};
+
+function Map({pro}) {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY
+  })
+
+  const [map, setMap] = React.useState(null)
+
+  const onLoad = React.useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+    setMap(map)
+  }, [])
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null)
+  }, [])
+
+  return isLoaded ? (
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        { /* Child components, such as markers, info windows, etc. */ }
+        <></>
+      </GoogleMap>
+  ) : <></>
 }
-export default Map;
+
+export default Map
